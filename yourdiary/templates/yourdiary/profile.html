@@ -1,0 +1,245 @@
+{% extends 'yourdiary/basic.html' %}
+{% load static %}
+
+
+{% block content %}
+    <main>
+    {% if request.user.is_authenticated %}
+      <section class="profile-nav">
+
+        <div class="container-fluid">
+          <div class="row">
+            <div class="nav-headline"> </div>
+          </div>
+          <div class="row">
+            <nav class="navbar profile-mnu ">
+              <div class="col-12">
+                <ul class="nav mnu-line-right justify-content-center" id="switchBox">
+                  <li class="nav-item profile-item profile-item__active" data-container="tasks">
+                      задания
+                  </li>
+<!--                  <li class="nav-item profile-item">-->
+<!--                      друзья-->
+<!--                  </li>-->
+<!--                  <li class="nav-item profile-item">-->
+<!--                      группы-->
+<!--                  </li>-->
+<!--                  <li class="nav-item profile-item" data-container="ratings">-->
+<!--                      рейтинг-->
+<!--                  </li>-->
+                </ul>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </section>
+      <section class="profile-content">
+        <div class="row" style="width: 97%;">
+          <div class="col-3">
+            <div class="profile-info">
+
+              <div class="profile-header">
+                <div class="profile-name position-relative">
+                  <img src="{% static 'yourdiary/img/'%}{{current_user.avatar}}" alt="Фото профиля">
+                  <div class="profile-login">
+                    <p>{{user.first_name}}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="profile-stats  pb-3">
+                <div class="stats-value">
+                  <div class="stats-value__caption">
+                    выполнено всего
+                  </div>
+                  <div class="stats-value__num">
+                    <span class="capitalized">{{current_user.tasks_solved}}</span> задач
+                  </div>
+                </div>
+                <div class="stats-value">
+                  <div class="stats-value__caption">
+                    пропущено всего
+                  </div>
+                  <div class="stats-value__num">
+                    <span class="capitalized">{{current_user.tasks_failed}}</span> задач
+                  </div>
+                </div>
+                <div class="stats-value">
+                  <div class="stats-value__caption">
+                    баллов
+                  </div>
+                  <div class="stats-value__num">
+                    <p><span class="capitalized">{{current_user.score}}</span> xp</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col-6" id="sections">
+
+            <!-- Задания -->
+            <div class="profile-content-wrapper" id="tasks">
+              <div class="profile-tasks">
+                <!-- Таск-->
+                <div class="task-day">
+                  <div class="task-day-content">
+                    <div class="tasks-list w-100">
+                      {% for object in tasks %}
+                      <div class="task-block">
+                        <div class="task-inner"  id="taskInner">
+                          <div class="task-header__icon">
+                            <span style="color: {{object.color}};"><i class="fas {{object.icon}}"></i></span>
+                          </div>
+                          <div class="task-header__text w-75">
+                            <div class="task-header__name">
+                              <h5>{{object.title}}</h5>
+                            </div>
+                            <div class="task-collapse-info mt-2">
+                              <div class="task-info__el">
+                                <b>Срок</b>: {{object.deadline|date:'d.m.Y'}}
+                              </div>
+                              <div class="task-info__el">
+                                <b>Комментарий</b>: {{object.comment}}
+                              </div>
+                            </div>
+                            <button type="button" class="collapsible" name="button"><i class="fas fa-chevron-down"></i></button>
+                          </div>
+                          <div class="task-check float-right">
+                            <div type="checkbox" data-checked-checkbox="{{object.done_indicator}}" class="checkbox-task checkbox-task-active" value="yes"></div>
+                          </div>
+                          <form>
+                            <input style="display: none;" type="number" name="id" value="{{object.id}}">
+                            <input class="delete-btn" type="submit" value="x">
+                          </form>
+                        </div>
+                      </div>
+                      {% endfor %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <!-- Рейтинг друзей -->
+            <!-- <div class="profile-content-wrapper" style="display: none;" id="ratings">
+              <div class="ratings-table w-100">
+                <div class="rt-heading">
+                  <div class="rt-values-block">
+                    <div class="col-2">
+                      <span class="rt-value">
+                        #
+                      </span>
+                    </div>
+                    <div class="col-8">
+                      <span class="rt-value">
+                        Имя
+                      </span>
+                    </div>
+                    <div class="col-2">
+                      <span class="rt-value">
+                        По баллам
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="rt-ratings">
+                  <div class="rt-rating-block">
+                    <div class="col-2">
+                      <span class="rt-rating gold">
+                        1
+                      </span>
+                    </div>
+                    <div class="col-9">
+                      <span class="rt-rating rt-rating__name">
+                        aaa Oliver Acid
+                      </span>
+                    </div>
+                    <div class="col-1">
+                      <span class="rt-rating rt-rating__ratio">
+                        245
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="rt-ratings">
+                  <div class="rt-rating-block">
+                    <div class="col-2">
+                      <span class="rt-rating silver">
+                        2
+                      </span>
+                    </div>
+                    <div class="col-9">
+                      <span class="rt-rating rt-rating__name">
+                        aaa Oliver Acid
+                      </span>
+                    </div>
+                    <div class="col-1">
+                      <span class="rt-rating rt-rating__ratio">
+                        244
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="rt-ratings">
+                  <div class="rt-rating-block">
+                    <div class="col-2">
+                      <span class="rt-rating bronze">
+                        3
+                      </span>
+                    </div>
+                    <div class="col-9">
+                      <span class="rt-rating rt-rating__name">
+                        aaa Oliver Acid
+                      </span>
+                    </div>
+                    <div class="col-1">
+                      <span class="rt-rating rt-rating__ratio">
+                        243
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> -->
+
+
+          <!-- Календарь -->
+        <div class="col-2">
+          <div class="task-button text-center">
+            <div class="row">
+              <div class="col-1">
+                <span class="ms-2" style="color: white; font-size: 20px;"><i class="fas fa-plus"></i></span>
+              </div>
+              <div class="col-10">
+                <a href="{% url 'createtask' %}" class="task-button__create">новое задание</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {% else %}
+      <div class="container-fluid">
+        <div class="main-header">
+          <h1>Эта страница доступна только авторизованным пользователям</h1>
+
+          <p style="margin-top: 40px;">Вы можете войти или зарегистрироваться на нашем сайте <a href="{% url 'login' %}" class="entry-link">здесь</a>.</p>
+        </div>
+      </div>
+      {% endif %}
+    </main>
+
+
+
+  <link rel="stylesheet" href="{% static 'yourdiary/css/calendar.css' %}">
+{% endblock %}
+
+{% block scripts %}
+  <script src="{% static 'yourdiary/js/profile.js' %}"></script>
+  <script src="{% static 'yourdiary/js/calendar.js' %}"></script>
+{% endblock %}

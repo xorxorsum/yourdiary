@@ -1,0 +1,40 @@
+{% extends 'yourdiary/basic.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<main>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-9">
+        <form class="login-form" id="loginForm" method="post">
+          <div class="form-header">
+            <div class="form-links" id="formLinks">
+              <a href="{% url 'change_email' %}" data-container="log" class="active">Смена почты</a>
+            </div>
+          </div>
+
+            <!-- Смена email -->
+          <div class="forms" id="forms">
+            <div class="form-inner" id="reg">
+              {% for field in form.visible_fields %}
+                <div class="form-group"> {{ field }} </div>
+                {% csrf_token %}
+              {% endfor %}
+              <div class="form-button mb-3">
+                <button class="yd-btn mt-3">Сменить</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

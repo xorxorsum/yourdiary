@@ -1,0 +1,202 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>YourDiary</title>
+  <link rel="stylesheet" href="{% static 'yourdiary/css/style.min.css' %}">
+</head>
+<body class="well" id="well">
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light main-mnu">
+      <div class="container-fluid">
+        <a class="navbar-brand brand-logo" href="{% url 'index' %}">
+          <img src="{% static 'yourdiary/img/logo.png' %}" alt="">
+        </a>
+
+        <ul class="nav mnu-line-left">
+          <li class="nav-item">
+            <div class="hidden-mnu d-inline ms-4 position-absolute">
+            </div>
+            <a href="#" class="toggle-mnu fadeBtn"><span></span></a>
+          </li>
+            <div class="hidden-mnu-wrap d-none fade">
+              <a href="{% url 'index' %}" class="ms-2 hidden-link">главная</a>
+              {% if request.user.is_authenticated %}
+              <a href="{% url 'settings' %}" class="ms-4 hidden-link">настройки</a>
+              <a href="{% url 'profile' %}" class="ms-4 hidden-link">личный кабинет</a>
+              {% else %}
+              <a href="{% url 'login' %}" class="ms-4 hidden-link">вход/регистрация</a>
+              {% endif %}
+            </div>
+        </ul>
+        <ul class="nav mnu-line-right justify-content-end">
+          <li class="nav-item">
+            <div class="login-entry">
+              <span class="entry">
+                {% if request.user.is_authenticated %}
+                <a href="{% url 'profile' %}" class="entry-link"> {{ request.user.first_name }}</a>
+                /
+                <a href="{% url 'logout' %}" class="entry-link"> выход </a>
+                {% else %}
+                <a href="{% url 'login' %}" class="entry-link"> Вход/Регистрация </a>
+                {% endif %}
+
+              </span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="landing-sect">
+      <div class="container-fluid" >
+        <div class="panel">
+          <div class="row">
+            <div class="col-12">
+              <div class="main-header" id="begin">
+                <div class="main-header__h anim" data-animation="fadeInUp" >
+                  <h1>
+                    ОРГАНАЙЗЕР<br> ВАШЕГО ДНЯ
+                  </h1>
+                </div>
+                <div class="main-header__text anim" data-animation="fadeIn" data-delay="1s">
+                  <p>
+                    YourDiary помогает подготовится к экзаменам, составить рабочий график, поставить цели и вести по ним статистику
+                  </p>
+                </div>
+                <div class="logo__text anim" data-animation="fadeInUp" data-delay=".3s">
+                  YOURDIARY
+                </div>
+              </div>
+              <div class="see-more">
+                узнать<br> больше <div class="arrow"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="row">
+            <div class="col d-lg-flex d-none background-white image-column">
+              <div class="panel-image anim" data-animation="fadeIn" data-duration="2s" >
+                <img src="{% static 'yourdiary/img/gif/lead.gif' %}" alt="Lead cat">
+              </div>
+            </div>
+            <div class="col">
+              <div class="panel-header">
+                <div class="panel-header__h anim" data-animation="fadeInRight" >
+                  <h2>
+                    СОЗДАВАЙ СВОИ<br> ЗАДАНИЯ
+                  </h2>
+                </div>
+                <div class="panel-header__text anim" data-animation="bounceIn" data-delay=".8s">
+                  <p>
+                    YourDiary – это онлайн-органайзер, помогающий распределить свое время и не забыть про свои дела
+                  </p>
+                </div>
+                <div class="logo__text anim" data-animation="fadeInRight" data-duration=".8s" data-delay=".3s">
+                  YOURDIARY
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="row">
+            <div class="col ">
+              <div class="panel-header">
+                <div class="panel-header__h anim" data-animation="rotateInUpLeft"  data-duration=".8s">
+                  <h2 class="text-sea">
+                    Отслеживай <br> продуктивность
+                  </h2>
+                </div>
+                <div class="panel-header__text anim" data-animation="fadeIn" data-delay=".7s">
+                  <p>
+                    Здесь ты можешь дать самому себе задание, установить сроки и сложность задания, а YourDiary составит статистику твоей исполнительности
+                  </p>
+                </div>
+                <div class="logo__text anim" data-animation="fadeInLeft" data-duration=".8s" >
+                  YOURDIARY
+                </div>
+              </div>
+            </div>
+            <div class="col col d-lg-flex d-md-none background-white image-column">
+              <div class="panel-image anim" data-animation="fadeIn" data-duration="2s" >
+                <img src="{% static 'yourdiary/img/gif/present.gif' %}" alt="Presentation cat">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="row">
+            <div class="col d-lg-flex d-md-none background-white image-column">
+              <div class="panel-image anim" data-animation="fadeIn" data-duration="2s" >
+                <img src="{% static 'yourdiary/img/gif/tap1.gif' %}" alt="Tapping cat">
+              </div>
+            </div>
+            <div class="col">
+              <div class="panel-header">
+                <div class="panel-header__h anim" data-animation="fadeInUp" >
+                  <h2 class="text-dark-blue">
+                    Выполняй задания <br> с друзьями
+                  </h2>
+                </div>
+                <div class="panel-header__text anim" data-animation="rotateInDownRight" data-duration=".5s" data-delay=".8s">
+                  <p>
+                    В YourDiary ты можешь выполнять совместные задания с друзьями и коллегами, а также узнать свой рейтинг среди пользователей
+                  </p>
+                </div>
+                <div class="logo__text anim" data-animation="fadeInRight" data-duration=".8s" >
+                  YOURDIARY
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="row">
+            <div class="col-12">
+              <div class="marquee">
+                <div class="marquee__text">
+                  YOURDIARY YOURDIARY YOURDIARY YOURDIARY YOURDIARY YOURDIARY YOURDIARY YOURDIARY
+                </div>
+              </div>
+              <div class="low-panel__content">
+                <div class="low-panel__image anim" data-animation="fadeIn" data-duration="2s" >
+                  <img src="{% static 'yourdiary/img/gif/main.gif' %}" alt="Main cats">
+                </div>
+                <div class="low-panel__text">
+                  <div class="low-panel__header anim" data-animation="jackInTheBox" data-duration=".7s">
+                    <h3>
+                      НАЧНИ ОРГАНИЗОВЫВАТЬ <br> СВОЙ ДЕНЬ
+                    </h3>
+                  </div>
+                  <div class="low-panel__par anim" data-animation="fadeInUp" data-duration=".7s" data-delay=".5s">
+                    <p>
+                      Доверьте нам ваш распорядок
+                    </p>
+                  </div>
+                </div>
+                <div class="low-panel__btn anim" data-animation="bounceIn" data-duration="1s" data-delay="1s">
+                  <a href="{% url 'login' %}" class="link-btn">ЗАРЕГИСТРИРОВАТЬСЯ</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+  <script src="{% static 'yourdiary/js/libs.min.js' %}"></script>
+<!--  <script src="{% static 'yourdiary/js/main.js' %}"></script>-->
+  <script src="{% static 'yourdiary/js/index.js' %}"></script>
+</body>
+</html>

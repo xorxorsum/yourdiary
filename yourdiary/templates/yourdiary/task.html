@@ -1,0 +1,94 @@
+{% extends 'yourdiary/basic.html' %}
+{% load static %}
+
+
+{% block content %}
+
+
+<main>
+
+  {% if request.user.is_authenticated %}
+  <section class="task-creating__caption">
+    <div class="container-fluid">
+      <div class="col-12">
+        <div class="row">
+          <div class="nav-headline">
+            <div class="page-naming">
+              <h1>Создание задания</h1>
+            </div>
+           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="task-creating">
+    <form method="post" action="" id="taskCreateForm">
+      {% csrf_token %}
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="task-info__caption">
+              <h3>Информация о задаче</h3>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <form method="post" class="task-form">
+              <div class="form-inner h-100">
+                <div class="row">
+                  <div class="col-6 h-100">
+                    <div class="task-group">
+                      {{ form.title }}
+                    </div>
+            
+                    <div class="task-group">
+                      {{ form.comment }}
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <!-- Тут надо дэйпикер настроить -->
+                      {{ form.media }} <!-- эта хрень полем не является -->
+                    <div class="task-group mt-0">
+                      <label class="date-picker__label">Дата начала</label>
+                      {{ form.date_start }} <!--Дата начала таска, она же и день, у которого будет отображаться этот таск-->
+                    </div>
+                    <div class="task-group mt-2">
+                      <label class="date-picker__label">Дата окончания</label>
+                      {{ form.date_end }} <!--Дата конца таска-->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="form-finish text-center">
+          <div class="container">
+            <div class="row">
+              <div class="col-12 mt-5">
+                <button class="link-btn me-7">Создать</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </section>
+
+  {% else %}
+    <div class="container-fluid">
+      <div class="main-header">
+        <h1>Эта страница доступна только авторизованным пользователям</h1>
+
+        <p style="margin-top: 40px;">Вы можете войти или зарегистрироваться на нашем сайте <a href="{% url 'login' %}" class="entry-link">здесь</a>.</p>
+      </div>
+    </div>
+  {% endif %}
+</main>
+{% endblock %}
+
+{% block scripts %}
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+  <script src="{% static 'yourdiary/js/task.js' %}"></script>
+{% endblock %}

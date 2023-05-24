@@ -1,0 +1,89 @@
+{% extends 'yourdiary/basic.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<main>
+  <section class="page-caption">
+    <div class="container-fluid">
+      <div class="col-12">
+        <div class="row">
+          <div class="nav-headline">
+            <div class="page-naming">
+              <h1>Настройки профиля</h1>
+            </div>
+           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="profile-settings">
+    <form method="post" action="" enctype="multipart/form-data" id="settingsForm">
+      {% csrf_token %}
+      <div class="container">
+        <div class="col-12">
+          <div class="row w-100">
+            <div class="col-12 w-100">
+              <div class="profile-layout">
+                <div class="avatar-upload">
+                  <input type="file" class="image-uploader" name="avatarNew" id="avatarUpload">
+                  <div class="avatar-upload__thumb" style="background-image: url('{% static 'yourdiary/img/'%}{{current_user.avatar}}')"></div>
+                </div>
+                <div class="profile-username">
+                  <h3>{{user.first_name}}</h3>
+                  <h4>{{user.email}}</h4>
+                </div>
+              </div>
+            </div>
+          <div class="col-6">
+            <div class="row w-100">
+              <div class="col-6 w-100 h-100">
+                <div class="settings-group">
+                  <h4>Имя</h4>
+                  {{form.new_name}}
+                </div>
+              </div>
+            </div>
+            <div class="row">
+
+
+              <div class="form-finish">
+                <div class="container">
+                  <div class="row">
+                    <button type="submit" class="link-btn text-center me-7">Сохранить изменения</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="settings-group">
+                <h4>действия с аккаунтом</h4>
+                <div class="settings-actions">
+                  <div class="setting-actions__btn">
+                    <a href="{% url 'change_password' %}">сменить пароль</a>
+                  </div>
+                  <div class="setting-actions__btn">
+                    <a href="{% url 'change_email' %}">сменить почту</a>
+                  </div>
+                  <div class="setting-actions__btn">
+                    <a href="{% url 'delete_account' %}">удалить аккаунт</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        </div>
+      </div>
+    </form>
+  </section>
+</main>
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

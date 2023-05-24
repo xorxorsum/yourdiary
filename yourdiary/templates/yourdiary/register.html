@@ -1,0 +1,46 @@
+{% extends 'yourdiary/basic.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<main>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <form class="login-form" id="loginForm" method="post">
+          <div class="form-header">
+            <div class="form-links" id="formLinks">
+              <a href="{% url 'login' %}" data-container="log">Вход</a>
+              <a href="{% url 'register' %}" data-container="reg" class="active">Регистрация</a>
+            </div>
+          </div>
+
+            <!-- Регистрация -->
+          <div class="forms" id="forms">
+            <div class="form-inner" id="reg">
+              {% for field in user_form.visible_fields %}
+                <div class="form-group"> {{ field }} </div>
+                {% csrf_token %}
+              {% endfor %}
+              <div class="form-button">
+                <button class="yd-btn">Зарегистрироваться</button>
+              </div>
+              <div class="form-license">
+                <p>
+                  Нажимая кнопку «Зарегистрироваться», вы принимаете <a href="{% url 'agreement' %}">пользовательское соглашение и политику конфиденциальности</a>.
+                </p>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

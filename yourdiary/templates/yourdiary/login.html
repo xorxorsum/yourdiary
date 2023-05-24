@@ -1,0 +1,41 @@
+{% extends 'yourdiary/basic.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<main>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <form class="login-form" id="loginForm" method="post">
+          <div class="form-header">
+            <div class="form-links" id="formLinks">
+              <a href="{% url 'login' %}" data-container="log" class="active">Вход</a>
+              <a href="{% url 'register' %}" data-container="reg">Регистрация</a>
+            </div>
+          </div>
+          {% csrf_token %}
+          <!-- Вход -->
+            <div class="form-inner" id="log">
+              {% for field in form.visible_fields %}
+                <div class="form-group"> {{ field }} </div>
+                {% csrf_token %}
+              {% endfor %}
+              <div class="form-checkbox">
+                <input type="checkbox" class="custom-checkbox" name="remember" id="remember" value="yes"><label for="remember">Запомнить меня</label>
+              </div>
+              <div class="form-button mb-3">
+                <button class="yd-btn mt-3">Войти</button>
+              </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}
+
+{% block scripts %}
+  <script src="{% static 'js/login.js' %}"></script>
+{% endblock %}
